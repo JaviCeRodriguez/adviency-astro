@@ -16,7 +16,15 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="flex justify-center items-center min-h-screen">
     <slot />
   </body>
 </html>
+
+<style>
+  body {
+    background-image: url("../assets/ornament-pattern.jpeg");
+    background-repeat: repeat;
+    background-size: 500px;
+  }
+</style>

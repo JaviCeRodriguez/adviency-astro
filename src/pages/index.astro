@@ -1,12 +1,11 @@
 ---
+import List from "../components/List";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Adviency 🤝 Astro">
-  <h1>Regalos:</h1>
-  <ul>
-    <li>Mate 🧉</li>
-    <li>Chocolates 🍫</li>
-    <li>Alfajores 🍪</li>
-  </ul>
+  <main class="bg-white flex flex-col w-max p-4 gap-2">
+    <h1 class="text-4xl">Regalos:</h1>
+    <List />
+  </main>
 </Layout>
