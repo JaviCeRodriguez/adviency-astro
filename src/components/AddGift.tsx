@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 type Props = {
+  gifts: string[];
   setGifts: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const AddGift = ({ setGifts }: Props) => {
+const AddGift = ({ gifts, setGifts }: Props) => {
   const [value, setValue] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,6 +14,10 @@ const AddGift = ({ setGifts }: Props) => {
 
   const handleClick = () => {
     if (value.trim() !== "") {
+      if (gifts.some((gift) => gift === value)) {
+        alert("Ya agregaste este regalo!");
+        return;
+      }
       setGifts((prevGifts) => [...prevGifts, value]);
       setValue("");
     }

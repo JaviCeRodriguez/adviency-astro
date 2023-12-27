@@ -14,7 +14,7 @@ const List = () => {
 
   return (
     <div>
-      <AddGift setGifts={setGifts} />
+      <AddGift gifts={gifts} setGifts={setGifts} />
       <ul>
         {gifts.map((gift, index) => (
           <li key={index} className="flex gap-4 justify-between py-1">
