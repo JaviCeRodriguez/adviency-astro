@@ -1,11 +1,16 @@
 import { useState } from "react";
 import AddGift from "./AddGift";
 
+export type Gift = {
+  name: string;
+  quantity: number;
+};
+
 const List = () => {
-  const [gifts, setGifts] = useState<string[]>([
-    "Mate 🧉",
-    "Chocolates 🍫",
-    "Alfajores 🍪",
+  const [gifts, setGifts] = useState<Gift[]>([
+    { name: "Mate 🧉", quantity: 1 },
+    { name: "Chocolates 🍫", quantity: 2 },
+    { name: "Alfajores 🍪", quantity: 3 },
   ]);
 
   const handleDelete = (index: number) => {
@@ -18,7 +23,7 @@ const List = () => {
       <ul>
         {gifts.map((gift, index) => (
           <li key={index} className="flex gap-4 justify-between py-1">
-            {gift}
+            {gift.name} x{gift.quantity}
             <button
               className="bg-red-500 px-2 rounded-xl text-white text-xs"
               type="button"

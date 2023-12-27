@@ -1,25 +1,36 @@
 import React, { useState } from "react";
+import type { Gift } from "./List";
 
 type Props = {
-  gifts: string[];
-  setGifts: React.Dispatch<React.SetStateAction<string[]>>;
+  gifts: Gift[];
+  setGifts: React.Dispatch<React.SetStateAction<Gift[]>>;
 };
 
 const AddGift = ({ gifts, setGifts }: Props) => {
   const [value, setValue] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeGift = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
+  const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value !== "") {
+      setQuantity(parseInt(event.target.value));
+    } else {
+      setQuantity(1);
+    }
+  };
+
   const handleClick = () => {
+    if (quantity <= 0) {
+      alert("La cantidad debe ser mayor a 0!");
+      return;
+    }
     if (value.trim() !== "") {
-      if (gifts.some((gift) => gift === value)) {
-        alert("Ya agregaste este regalo!");
-        return;
-      }
-      setGifts((prevGifts) => [...prevGifts, value]);
+      setGifts((prevGifts) => [...prevGifts, { name: value, quantity }]);
       setValue("");
+      setQuantity(1);
     }
   };
 
@@ -31,7 +42,16 @@ const AddGift = ({ gifts, setGifts }: Props) => {
         placeholder="Regalo"
         name="gift"
         value={value}
-        onChange={handleChange}
+        onChange={handleChangeGift}
+        onKeyDown={(event) => event.key === "Enter" && handleClick()}
+      />
+      <input
+        className="border-green-500 border-2 rounded-lg px-1 w-16"
+        type="number"
+        min={1}
+        name="quantity"
+        value={quantity}
+        onChange={handleChangeQuantity}
         onKeyDown={(event) => event.key === "Enter" && handleClick()}
       />
       <button
