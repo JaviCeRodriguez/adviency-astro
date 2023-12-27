@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import type { Gift } from "./List";
+import type { Gift } from "../utils/types";
 
 type Props = {
-  gifts: Gift[];
   setGifts: React.Dispatch<React.SetStateAction<Gift[]>>;
 };
 
-const AddGift = ({ gifts, setGifts }: Props) => {
+const AddGift = ({ setGifts }: Props) => {
   const [value, setValue] = useState("");
   const [quantity, setQuantity] = useState(1);
 

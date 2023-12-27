@@ -1,25 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddGift from "./AddGift";
+import type { Gift } from "../utils/types";
+import { saveToLS } from "../store/localStorage";
 
-export type Gift = {
-  name: string;
-  quantity: number;
+type Props = {
+  savedGifts: Gift[] | null;
 };
 
-const List = () => {
-  const [gifts, setGifts] = useState<Gift[]>([
-    { name: "Mate 🧉", quantity: 1 },
-    { name: "Chocolates 🍫", quantity: 2 },
-    { name: "Alfajores 🍪", quantity: 3 },
-  ]);
+const List = ({ savedGifts }: Props) => {
+  const [gifts, setGifts] = useState<Gift[]>(savedGifts || []);
 
   const handleDelete = (index: number) => {
     setGifts((prevGifts) => prevGifts.filter((_, i) => i !== index));
   };
 
+  useEffect(() => {
+    saveToLS(gifts);
+  }, [gifts]);
+
   return (
     <div>
-      <AddGift gifts={gifts} setGifts={setGifts} />
+      <AddGift setGifts={setGifts} />
       <ul>
         {gifts.map((gift, index) => (
           <li key={index} className="flex gap-4 justify-between py-1">
