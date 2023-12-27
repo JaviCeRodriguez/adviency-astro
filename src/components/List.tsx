@@ -37,7 +37,9 @@ const List = () => {
         >
           Borrar todos
         </button>
-      ) : null}
+      ) : (
+        <p className="mt-2">No hay regalos che, agregá algo!</p>
+      )}
     </div>
   );
 };
