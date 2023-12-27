@@ -29,6 +29,15 @@ const List = () => {
           </li>
         ))}
       </ul>
+      {gifts.length ? (
+        <button
+          className="bg-red-500 mt-2 py-2 rounded-xl text-white text-sm w-full"
+          type="button"
+          onClick={() => setGifts([])}
+        >
+          Borrar todos
+        </button>
+      ) : null}
     </div>
   );
 };
