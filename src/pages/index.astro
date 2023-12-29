@@ -1,13 +1,10 @@
 ---
 import List from "../components/List";
 import Layout from "../layouts/Layout.astro";
-// import { loadFromLS } from "../store/localStorage";
-
-// const gifts = await loadFromLS();
 ---
 
 <Layout title="Adviency 🤝 Astro">
-  <main class="bg-white flex flex-col w-max p-4 gap-2">
+  <main class="bg-white flex flex-col w-max p-4 gap-4 rounded-md">
     <h1 class="text-4xl">Regalos:</h1>
     <List client:load />
   </main>
