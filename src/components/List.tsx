@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
 import AddGift from "./AddGift";
-import type { Gift } from "../utils/types";
-import { saveToLS } from "../store/localStorage";
+import { $gifts } from "../store/gifts";
+import { useStore } from "@nanostores/react";
 
-type Props = {
-  savedGifts: Gift[] | null;
-};
-
-const List = ({ savedGifts }: Props) => {
-  const [gifts, setGifts] = useState<Gift[]>(savedGifts || []);
-
+const List = () => {
+  const gifts = useStore($gifts);
   const handleDelete = (index: number) => {
-    setGifts((prevGifts) => prevGifts.filter((_, i) => i !== index));
+    $gifts.set($gifts.get().filter((_, i) => i !== index));
   };
-
-  useEffect(() => {
-    saveToLS(gifts);
-  }, [gifts]);
 
   return (
     <div>
-      <AddGift setGifts={setGifts} />
+      <AddGift />
       <ul>
         {gifts.map((gift, index) => (
           <li key={index} className="flex gap-4 justify-between py-1">
@@ -39,7 +29,7 @@ const List = ({ savedGifts }: Props) => {
         <button
           className="bg-red-500 mt-2 py-2 rounded-xl text-white text-sm w-full"
           type="button"
-          onClick={() => setGifts([])}
+          onClick={() => $gifts.set([])}
         >
           Borrar todos
         </button>

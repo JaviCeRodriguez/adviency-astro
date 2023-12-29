@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import type { Gift } from "../utils/types";
+import { $gifts } from "../store/gifts";
 
-type Props = {
-  setGifts: React.Dispatch<React.SetStateAction<Gift[]>>;
-};
-
-const AddGift = ({ setGifts }: Props) => {
+const AddGift = () => {
   const [value, setValue] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -27,7 +23,7 @@ const AddGift = ({ setGifts }: Props) => {
       return;
     }
     if (value.trim() !== "") {
-      setGifts((prevGifts) => [...prevGifts, { name: value, quantity }]);
+      $gifts.set([...$gifts.get(), { name: value, quantity }]);
       setValue("");
       setQuantity(1);
     }
