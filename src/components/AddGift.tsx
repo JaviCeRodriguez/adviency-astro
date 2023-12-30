@@ -3,6 +3,7 @@ import { addGift, updateGift } from "../store/gifts";
 import type { Gift } from "../utils/types";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { v4 as uuidv4 } from "uuid";
+import { giftsSuggestions } from "../utils/suggestions";
 
 type Props = {
   selectedGift: Gift | null;
@@ -20,6 +21,12 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
       quantity: 1,
     }
   );
+
+  const surpiseMe = () => {
+    const giftName =
+      giftsSuggestions[Math.floor(Math.random() * giftsSuggestions.length)];
+    setGift({ ...gift, name: giftName });
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -67,21 +74,29 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
 
   return (
     <div className="flex flex-col gap-2">
+      <div className="flex gap-2">
+        <input
+          className="border-green-500 border-2 rounded-lg px-1 w-full"
+          type="text"
+          placeholder="Regalo"
+          name="name"
+          value={gift.name}
+          onChange={handleChange}
+          onKeyDown={(event) => event.key === "Enter" && handleClick()}
+        />
+        <button
+          className="bg-green-500 px-1 text-sm rounded-lg text-white w-56"
+          onClick={surpiseMe}
+        >
+          Sorpendeme! 🎁
+        </button>
+      </div>
       <input
         className="border-green-500 border-2 rounded-lg px-1"
         type="text"
         placeholder="http://image..."
         name="image"
         value={gift.image}
-        onChange={handleChange}
-        onKeyDown={(event) => event.key === "Enter" && handleClick()}
-      />
-      <input
-        className="border-green-500 border-2 rounded-lg px-1"
-        type="text"
-        placeholder="Regalo"
-        name="name"
-        value={gift.name}
         onChange={handleChange}
         onKeyDown={(event) => event.key === "Enter" && handleClick()}
       />
