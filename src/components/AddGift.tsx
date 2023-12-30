@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { $gifts } from "../store/gifts";
+import { addGift, updateGift } from "../store/gifts";
 import type { Gift } from "../utils/types";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { v4 as uuidv4 } from "uuid";
@@ -49,9 +49,9 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
     }
 
     if (selectedGift) {
-      $gifts.set($gifts.get().map((g) => (g.id === gift.id ? gift : g)));
+      updateGift(gift);
     } else {
-      $gifts.set([...$gifts.get(), gift]);
+      addGift(gift);
     }
 
     setGift({

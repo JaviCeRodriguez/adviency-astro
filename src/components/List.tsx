@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { TrashIcon, Pencil1Icon } from "@radix-ui/react-icons";
-import { $gifts } from "../store/gifts";
+import { $gifts, removeAllGifts, removeGift } from "../store/gifts";
 import ModalGift from "./AddGiftModal";
 import { useState } from "react";
 import type { Gift } from "../utils/types";
@@ -10,9 +10,10 @@ const List = () => {
   const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
   const [isOpen, setOpen] = useState(false);
   const gifts = useStore($gifts);
-  const handleDelete = (index: number) => {
-    $gifts.set($gifts.get().filter((_, i) => i !== index));
-  };
+
+  if (gifts === null) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -57,7 +58,7 @@ const List = () => {
                   <button
                     className="bg-red-500 px-2 rounded-xl text-white text-xs h-8 w-8"
                     type="button"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => removeGift(gift.id)}
                   >
                     <TrashIcon />
                   </button>
@@ -68,7 +69,7 @@ const List = () => {
           <button
             className="bg-slate-400 py-2 rounded-xl text-sm w-full"
             type="button"
-            onClick={() => $gifts.set([])}
+            onClick={removeAllGifts}
           >
             Borrar todos
           </button>
