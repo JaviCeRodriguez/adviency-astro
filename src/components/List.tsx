@@ -11,10 +11,6 @@ const List = () => {
   const [isOpen, setOpen] = useState(false);
   const gifts = useStore($gifts);
 
-  if (gifts === null) {
-    return <div>Cargando...</div>;
-  }
-
   return (
     <div className="flex flex-col gap-2">
       <ModalGift
@@ -24,7 +20,7 @@ const List = () => {
         selectedGift={selectedGift}
         onEditGift={() => setSelectedGift(null)}
       />
-      {gifts.length ? (
+      {gifts?.length ? (
         <>
           <ul>
             {gifts.map((gift, index) => (
