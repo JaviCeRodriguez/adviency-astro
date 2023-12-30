@@ -1,9 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import AddGift from "./AddGift";
-import type { Gift } from "../utils/types";
+import type { Gift, Modes } from "../utils/types";
 
 type Props = {
+  mode: Modes;
   isOpen: boolean;
   selectedGift: Gift | null;
   onOpen: () => void;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const AddGiftModal = ({
+  mode,
   isOpen,
   onOpen,
   onClose,
@@ -37,6 +39,7 @@ const AddGiftModal = ({
           Agrega un regalo a la lista 🎁 🎁
         </Dialog.Title>
         <AddGift
+          mode={mode}
           onClose={onClose}
           selectedGift={selectedGift}
           onEditGift={onEditGift}

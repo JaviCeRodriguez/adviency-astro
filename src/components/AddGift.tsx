@@ -1,27 +1,36 @@
 import React, { useState } from "react";
 import { addGift, updateGift } from "../store/gifts";
-import type { Gift } from "../utils/types";
+import type { Gift, Modes } from "../utils/types";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { v4 as uuidv4 } from "uuid";
 import { giftsSuggestions } from "../utils/suggestions";
 
 type Props = {
+  mode: Modes;
   selectedGift: Gift | null;
   onClose: () => void;
   onEditGift: () => void;
 };
 
-const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
-  const [gift, setGift] = useState<Gift>(
-    selectedGift ?? {
+const AddGift = ({ mode, selectedGift, onClose, onEditGift }: Props) => {
+  const getInitialGift = () => {
+    if (mode === "edit" && selectedGift) {
+      return selectedGift;
+    }
+    if (mode === "duplicate" && selectedGift) {
+      return { ...selectedGift, id: uuidv4() };
+    }
+    return {
       id: uuidv4(),
       image: "",
       name: "",
       to: "",
       quantity: 1,
       price: "0",
-    }
-  );
+    };
+  };
+
+  const [gift, setGift] = useState<Gift>(getInitialGift());
 
   const surpiseMe = () => {
     const giftName =
@@ -56,7 +65,7 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
       return;
     }
 
-    if (selectedGift) {
+    if (mode === "edit") {
       updateGift(gift);
     } else {
       addGift(gift);
@@ -141,7 +150,7 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
           onClick={handleClick}
           aria-label="Close"
         >
-          {selectedGift ? "Editar" : "Agregar"}
+          {mode === "edit" ? "Editar" : "Agregar"}
         </button>
       </DialogClose>
     </div>

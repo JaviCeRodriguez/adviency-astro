@@ -1,22 +1,27 @@
 import { useStore } from "@nanostores/react";
-import { TrashIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { TrashIcon, Pencil1Icon, CopyIcon } from "@radix-ui/react-icons";
 import { $gifts, removeAllGifts, removeGift } from "../store/gifts";
 import ModalGift from "./AddGiftModal";
 import { useState } from "react";
-import type { Gift } from "../utils/types";
+import type { Gift, Modes } from "../utils/types";
 import { formatPrice, getTotalPriceARS } from "../utils/helpers";
 
 // TODO: Resolver hydration errors
 const List = () => {
   const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
+  const [mode, setMode] = useState<Modes>("add");
   const [isOpen, setOpen] = useState(false);
   const gifts = useStore($gifts);
 
   return (
     <div className="flex flex-col gap-2">
       <ModalGift
+        mode={mode}
         isOpen={isOpen}
-        onOpen={() => setOpen(true)}
+        onOpen={() => {
+          setMode("add");
+          setOpen(true);
+        }}
         onClose={() => setOpen(false)}
         selectedGift={selectedGift}
         onEditGift={() => setSelectedGift(null)}
@@ -47,11 +52,23 @@ const List = () => {
                     className="bg-orange-500 px-2 rounded-xl text-white text-xs h-8 w-8"
                     type="button"
                     onClick={() => {
+                      setMode("edit");
                       setSelectedGift(gift);
                       setOpen(true);
                     }}
                   >
                     <Pencil1Icon />
+                  </button>
+                  <button
+                    className="bg-yellow-500 px-2 rounded-xl text-white text-xs h-8 w-8"
+                    type="button"
+                    onClick={() => {
+                      setMode("duplicate");
+                      setSelectedGift(gift);
+                      setOpen(true);
+                    }}
+                  >
+                    <CopyIcon />
                   </button>
                   <button
                     className="bg-red-500 px-2 rounded-xl text-white text-xs h-8 w-8"
