@@ -1,6 +1,6 @@
-import AddGift from "./AddGift";
 import { $gifts } from "../store/gifts";
 import { useStore } from "@nanostores/react";
+import ModalGift from "./AddGiftModal";
 
 // TODO: Resolver hydration errors
 const List = () => {
@@ -11,7 +11,7 @@ const List = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <AddGift />
+      <ModalGift />
       {gifts.length ? (
         <>
           <ul>
@@ -36,7 +36,7 @@ const List = () => {
             ))}
           </ul>
           <button
-            className="bg-red-500 py-2 rounded-xl text-white text-sm w-full"
+            className="bg-slate-400 py-2 rounded-xl text-sm w-full"
             type="button"
             onClick={() => $gifts.set([])}
           >

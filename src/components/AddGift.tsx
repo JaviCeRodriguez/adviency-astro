@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { $gifts } from "../store/gifts";
 import type { Gift } from "../utils/types";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const defaultGift = {
   image: "",
@@ -38,7 +39,7 @@ const AddGift = () => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-col gap-2">
       <input
         className="border-green-500 border-2 rounded-lg px-1"
         type="text"
@@ -57,22 +58,27 @@ const AddGift = () => {
         onChange={handleChange}
         onKeyDown={(event) => event.key === "Enter" && handleClick()}
       />
-      <input
-        className="border-green-500 border-2 rounded-lg px-1 w-16"
-        type="number"
-        min={1}
-        name="quantity"
-        value={gift.quantity}
-        onChange={handleChange}
-        onKeyDown={(event) => event.key === "Enter" && handleClick()}
-      />
-      <button
-        className="bg-red-500 px-1 rounded-lg text-white"
-        type="button"
-        onClick={handleClick}
-      >
-        Agregar
-      </button>
+      <div className="flex gap-2">
+        <input
+          className="border-green-500 border-2 rounded-lg px-1 w-24 text-center"
+          type="number"
+          min={1}
+          name="quantity"
+          value={gift.quantity}
+          onChange={handleChange}
+          onKeyDown={(event) => event.key === "Enter" && handleClick()}
+        />
+        <DialogClose asChild>
+          <button
+            className="bg-red-500 px-1 rounded-lg text-white w-full"
+            type="button"
+            onClick={handleClick}
+            aria-label="Close"
+          >
+            Agregar
+          </button>
+        </DialogClose>
+      </div>
     </div>
   );
 };
