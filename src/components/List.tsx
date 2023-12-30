@@ -12,6 +12,7 @@ const List = () => {
   const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
   const [mode, setMode] = useState<Modes>("add");
   const [isOpen, setOpen] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const gifts = useStore($gifts);
 
   return (
@@ -93,7 +94,11 @@ const List = () => {
           >
             Borrar todos
           </button>
-          <ViewGiftsModal />
+          <ViewGiftsModal
+            isOpen={previewOpen}
+            onOpen={() => setPreviewOpen(true)}
+            onClose={() => setPreviewOpen(false)}
+          />
         </>
       ) : (
         <p>No hay regalos che, agregá algo!</p>
