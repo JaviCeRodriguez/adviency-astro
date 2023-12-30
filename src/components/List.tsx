@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { TrashIcon, Pencil1Icon, CopyIcon } from "@radix-ui/react-icons";
 import { $gifts, removeAllGifts, removeGift } from "../store/gifts";
 import ModalGift from "./AddGiftModal";
-import { useState } from "react";
 import type { Gift, Modes } from "../utils/types";
 import { formatPrice, getTotalPriceARS } from "../utils/helpers";
 import ViewGiftsModal from "./ViewGiftsModal";
