@@ -4,5 +4,5 @@ export type Gift = {
   name: string;
   to: string;
   quantity: number;
-  price: number;
+  price: string;
 };

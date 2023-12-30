@@ -19,7 +19,7 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
       name: "",
       to: "",
       quantity: 1,
-      price: 0,
+      price: "0",
     }
   );
 
@@ -68,7 +68,7 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
       name: "",
       to: "",
       quantity: 1,
-      price: 0,
+      price: "0",
     });
     onEditGift();
     onClose();

@@ -4,6 +4,7 @@ import { $gifts, removeAllGifts, removeGift } from "../store/gifts";
 import ModalGift from "./AddGiftModal";
 import { useState } from "react";
 import type { Gift } from "../utils/types";
+import { formatPrice, getTotalPriceARS } from "../utils/helpers";
 
 // TODO: Resolver hydration errors
 const List = () => {
@@ -33,7 +34,8 @@ const List = () => {
                   />
                   <span>
                     <h5>
-                      {gift.name} (x{gift.quantity}) - ${gift.price}
+                      {gift.name} (x{gift.quantity}) -&nbsp;
+                      {formatPrice(parseFloat(gift.price))}
                     </h5>
                     <p className="text-xs text-slate-700">
                       {gift.to || "Sin destinatario"}
@@ -62,6 +64,10 @@ const List = () => {
               </li>
             ))}
           </ul>
+          <hr />
+          <h4 className="text-center text-sm font-semibold">
+            Total: {getTotalPriceARS(gifts)}
+          </h4>
           <button
             className="bg-slate-400 py-2 rounded-xl text-sm w-full"
             type="button"
