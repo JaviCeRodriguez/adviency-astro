@@ -19,6 +19,7 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
       name: "",
       to: "",
       quantity: 1,
+      price: 0,
     }
   );
 
@@ -67,6 +68,7 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
       name: "",
       to: "",
       quantity: 1,
+      price: 0,
     });
     onEditGift();
     onClose();
@@ -109,9 +111,9 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
         onChange={handleChange}
         onKeyDown={(event) => event.key === "Enter" && handleClick()}
       />
-      <div className="flex gap-2">
+      <div className="flex justify-between gap-2">
         <input
-          className="border-green-500 border-2 rounded-lg px-1 w-24 text-center"
+          className="border-green-500 border-2 rounded-lg px-1 w-2/5 text-center"
           type="number"
           min={1}
           name="quantity"
@@ -119,17 +121,29 @@ const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
           onChange={handleChange}
           onKeyDown={(event) => event.key === "Enter" && handleClick()}
         />
-        <DialogClose asChild>
-          <button
-            className="bg-red-500 px-1 rounded-lg text-white w-full"
-            type="button"
-            onClick={handleClick}
-            aria-label="Close"
-          >
-            {selectedGift ? "Editar" : "Agregar"}
-          </button>
-        </DialogClose>
+        <label className="w-2/5 flex gap-1 items-center">
+          <input
+            className="border-green-500 border-2 rounded-lg px-1 text-right w-full"
+            type="number"
+            min={0}
+            name="price"
+            value={gift.price}
+            onChange={handleChange}
+            onKeyDown={(event) => event.key === "Enter" && handleClick()}
+          />
+          <span className="text-md text-gray-500">$</span>
+        </label>
       </div>
+      <DialogClose asChild>
+        <button
+          className="bg-red-500 px-1 rounded-lg text-white w-full h-10"
+          type="button"
+          onClick={handleClick}
+          aria-label="Close"
+        >
+          {selectedGift ? "Editar" : "Agregar"}
+        </button>
+      </DialogClose>
     </div>
   );
 };

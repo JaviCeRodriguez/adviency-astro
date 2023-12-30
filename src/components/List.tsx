@@ -33,7 +33,7 @@ const List = () => {
                   />
                   <span>
                     <h5>
-                      {gift.name} x{gift.quantity}
+                      {gift.name} (x{gift.quantity}) - ${gift.price}
                     </h5>
                     <p className="text-xs text-slate-700">
                       {gift.to || "Sin destinatario"}
