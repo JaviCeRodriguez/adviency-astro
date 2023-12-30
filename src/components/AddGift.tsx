@@ -6,6 +6,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 const defaultGift = {
   image: "",
   name: "",
+  to: "",
   quantity: 1,
 };
 
@@ -26,6 +27,11 @@ const AddGift = () => {
 
     if (gift.image.trim() === "") {
       alert("La imagen no puede estar vacía!");
+      return;
+    }
+
+    if (gift.to.trim() === "") {
+      alert("El destinatario no puede estar vacío!");
       return;
     }
 
@@ -55,6 +61,15 @@ const AddGift = () => {
         placeholder="Regalo"
         name="name"
         value={gift.name}
+        onChange={handleChange}
+        onKeyDown={(event) => event.key === "Enter" && handleClick()}
+      />
+      <input
+        className="border-green-500 border-2 rounded-lg px-1"
+        type="text"
+        placeholder="Destinatario"
+        name="to"
+        value={gift.to}
         onChange={handleChange}
         onKeyDown={(event) => event.key === "Enter" && handleClick()}
       />

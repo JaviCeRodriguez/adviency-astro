@@ -21,9 +21,16 @@ const List = () => {
                   <img
                     src={gift.image}
                     alt={gift.name}
-                    className="h-8 w-8 rounded-xl shadow-md object-cover"
+                    className="h-12 w-12 rounded-xl shadow-md object-cover"
                   />
-                  {gift.name} x{gift.quantity}
+                  <span>
+                    <h5>
+                      {gift.name} x{gift.quantity}
+                    </h5>
+                    <p className="text-xs text-slate-700">
+                      {gift.to || "Sin destinatario"}
+                    </p>
+                  </span>
                 </div>
                 <button
                   className="bg-red-500 px-2 rounded-xl text-white text-xs h-8 w-8"
