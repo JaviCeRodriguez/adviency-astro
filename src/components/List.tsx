@@ -5,6 +5,7 @@ import ModalGift from "./AddGiftModal";
 import { useState } from "react";
 import type { Gift, Modes } from "../utils/types";
 import { formatPrice, getTotalPriceARS } from "../utils/helpers";
+import ViewGiftsModal from "./ViewGiftsModal";
 
 // TODO: Resolver hydration errors
 const List = () => {
@@ -92,6 +93,7 @@ const List = () => {
           >
             Borrar todos
           </button>
+          <ViewGiftsModal />
         </>
       ) : (
         <p>No hay regalos che, agregá algo!</p>
