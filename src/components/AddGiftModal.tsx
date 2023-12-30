@@ -1,11 +1,29 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import AddGift from "./AddGift";
+import type { Gift } from "../utils/types";
 
-const AddGiftModal = () => (
-  <Dialog.Root>
+type Props = {
+  isOpen: boolean;
+  selectedGift: Gift | null;
+  onOpen: () => void;
+  onClose: () => void;
+  onEditGift: () => void;
+};
+
+const AddGiftModal = ({
+  isOpen,
+  onOpen,
+  onClose,
+  selectedGift,
+  onEditGift,
+}: Props) => (
+  <Dialog.Root open={isOpen}>
     <Dialog.Trigger asChild>
-      <button className="bg-red-500 py-2 rounded-xl text-white text-sm w-full">
+      <button
+        className="bg-red-500 py-2 rounded-xl text-white text-sm w-full"
+        onClick={onOpen}
+      >
         Agregar regalo
       </button>
     </Dialog.Trigger>
@@ -15,11 +33,19 @@ const AddGiftModal = () => (
         <Dialog.Title className="m-0 text-[17px] font-medium mb-4">
           Agrega un regalo a la lista 🎁 🎁
         </Dialog.Title>
-        <AddGift />
+        <AddGift
+          onClose={onClose}
+          selectedGift={selectedGift}
+          onEditGift={onEditGift}
+        />
         <Dialog.Close asChild>
           <button
             className="hover:bg-red-500 hover:bg-opacity-70 focus:shadow-lg absolute top-[10px] right-[10px] inline-flex h-[32px] w-[32px] appearance-none items-center justify-center rounded-full focus:outline-none"
             aria-label="Close"
+            onClick={() => {
+              onEditGift();
+              onClose();
+            }}
           >
             <Cross2Icon />
           </button>

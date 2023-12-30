@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import { $gifts } from "../store/gifts";
 import type { Gift } from "../utils/types";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { v4 as uuidv4 } from "uuid";
 
-const defaultGift = {
-  image: "",
-  name: "",
-  to: "",
-  quantity: 1,
+type Props = {
+  selectedGift: Gift | null;
+  onClose: () => void;
+  onEditGift: () => void;
 };
 
-const AddGift = () => {
-  const [gift, setGift] = useState<Gift>(defaultGift);
+const AddGift = ({ selectedGift, onClose, onEditGift }: Props) => {
+  const [gift, setGift] = useState<Gift>(
+    selectedGift ?? {
+      id: uuidv4(),
+      image: "",
+      name: "",
+      to: "",
+      quantity: 1,
+    }
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -40,8 +48,21 @@ const AddGift = () => {
       return;
     }
 
-    $gifts.set([...$gifts.get(), gift]);
-    setGift(defaultGift);
+    if (selectedGift) {
+      $gifts.set($gifts.get().map((g) => (g.id === gift.id ? gift : g)));
+    } else {
+      $gifts.set([...$gifts.get(), gift]);
+    }
+
+    setGift({
+      id: uuidv4(),
+      image: "",
+      name: "",
+      to: "",
+      quantity: 1,
+    });
+    onEditGift();
+    onClose();
   };
 
   return (
@@ -90,7 +111,7 @@ const AddGift = () => {
             onClick={handleClick}
             aria-label="Close"
           >
-            Agregar
+            {selectedGift ? "Editar" : "Agregar"}
           </button>
         </DialogClose>
       </div>
